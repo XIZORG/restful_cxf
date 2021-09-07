@@ -9,11 +9,6 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * A "fake" in-memory repository for Group data.
- *
- * @auhor Eric Westfall (ewestfal@gmail.com)
- */
 @Repository
 public class GroupRepository {
 
