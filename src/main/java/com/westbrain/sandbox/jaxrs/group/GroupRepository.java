@@ -82,12 +82,9 @@ public class GroupRepository {
         return groupMembers.remove(memberId);
     }
 
-    /**
-     * Create 10 groups each with 1-15 members
-     */
     @PostConstruct
     private void initializeData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             Group group = save(new Group(Lorem.getWords(1), Lorem.getWords(7)));
             int membersToGenerate = random.nextInt(15) + 1;
             for (int j = 0; j < membersToGenerate; j++) {
