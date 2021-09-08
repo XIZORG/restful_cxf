@@ -47,11 +47,11 @@
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${apache.cxf.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.3.Final</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-entitymanager</artifactId>-->
+<!--            <version>5.2.3.Final</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
