@@ -1,5 +1,6 @@
 package com.westbrain.sandbox.jaxrs;
 
+import com.westbrain.sandbox.jaxrs.config.CxfConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

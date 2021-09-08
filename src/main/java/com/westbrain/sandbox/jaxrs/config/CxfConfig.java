@@ -1,32 +1,36 @@
 package com.westbrain.sandbox.jaxrs.config;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.westbrain.sandbox.jaxrs.article.ArticleController;
 import org.apache.cxf.Bus;
-import org.apache.cxf.bus.spring.SpringBus;
-import org.apache.cxf.jaxrs.spring.SpringComponentScanServer;
-import org.apache.cxf.transport.servlet.CXFServlet;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.apache.cxf.endpoint.Server;
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.apache.cxf.jaxrs.swagger.Swagger2Feature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+
+import java.util.Arrays;
 
 @Configuration
-@Import(SpringComponentScanServer.class)
 public class CxfConfig {
 
+    @Autowired
+    private Bus bus;
+
     @Bean
-    public ServletRegistrationBean cxfServlet() {
-        return new ServletRegistrationBean(new CXFServlet(), "/api/v1/*");
+    public Server rsServer() {
+        final JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
+        endpoint.setProvider(new JacksonJsonProvider());
+        endpoint.setBus(bus);
+        endpoint.setAddress("/");
+        endpoint.setServiceBeans(Arrays.<Object>asList(contextAPI()));
+        endpoint.setFeatures(Arrays.asList(new Swagger2Feature()));
+        return endpoint.create();
     }
 
     @Bean
-    public Bus cxf() {
-        return new SpringBus();
+    public ArticleController contextAPI() {
+        return new ArticleController();
     }
-
-    @Bean
-    public JacksonJsonProvider jsonProvider() {
-        return new JacksonJsonProvider();
-    }
-
 }
