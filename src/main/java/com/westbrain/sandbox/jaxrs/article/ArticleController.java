@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Service
 @Path("/articles")
@@ -16,7 +17,7 @@ public class ArticleController {
     private ArticleRepository repository;
 
     @GET
-    public Iterable<Article> getAllGroups() {
+    public List<Article> getAllGroups() {
         return repository.findAll();
     }
 }

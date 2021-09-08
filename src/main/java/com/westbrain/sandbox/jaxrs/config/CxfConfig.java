@@ -1,4 +1,4 @@
-package com.westbrain.sandbox.jaxrs.cxf;
+package com.westbrain.sandbox.jaxrs.config;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.apache.cxf.Bus;
