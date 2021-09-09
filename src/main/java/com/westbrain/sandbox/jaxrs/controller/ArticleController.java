@@ -35,6 +35,13 @@ public class ArticleController {
         return articleService.create(articleRequest);
     }
 
+    @GET
+    @Path("/{articleId}")
+    @ApiOperation("Get article")
+    public ArticleResponse getArticle(@PathParam("articleId") Long id) {
+        return articleService.get(id);
+    }
+
     @PUT
     @Path("/{articleId}")
     @ApiOperation(value = "Update article")

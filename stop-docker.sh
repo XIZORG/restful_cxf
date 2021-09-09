@@ -1,2 +1,2 @@
-sudo docker container stop 563421cd564e
+sudo docker container stop mysql-standalone
 sudo docker container stop user-mysql

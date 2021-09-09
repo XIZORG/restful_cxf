@@ -18,7 +18,7 @@
         <apache.cxf.version>3.0.3</apache.cxf.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <cxf.version>3.1.15</cxf.version>
+        <cxf.version>3.2.0</cxf.version>
         <swagger-ui.version>3.9.2</swagger-ui.version>
         <jackson.version>2.9.3</jackson.version>
     </properties>

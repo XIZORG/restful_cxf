@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ArticleService {
     List<ArticleResponse> getAll();
+    ArticleResponse get(Long id);
     ArticleResponse create(ArticleRequest articleRequest);
     ArticleResponse update(Long id, ArticleRequest articleRequest);
     void delete(Long id);
