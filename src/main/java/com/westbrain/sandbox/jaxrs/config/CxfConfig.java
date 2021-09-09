@@ -1,7 +1,7 @@
 package com.westbrain.sandbox.jaxrs.config;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.westbrain.sandbox.jaxrs.article.ArticleController;
+import com.westbrain.sandbox.jaxrs.controller.ArticleController;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
