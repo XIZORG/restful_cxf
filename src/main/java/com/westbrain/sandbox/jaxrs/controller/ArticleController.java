@@ -7,6 +7,7 @@ import com.westbrain.sandbox.jaxrs.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
@@ -17,9 +18,15 @@ import java.util.List;
 @Service
 @Path("/articles")
 @Produces(MediaType.APPLICATION_JSON)
+@Controller
 public class ArticleController {
+
+    private final ArticleService articleService;
+
     @Autowired
-    private ArticleService articleService;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @GET
     @Path("/")
@@ -52,7 +59,7 @@ public class ArticleController {
     @DELETE
     @Path("/{articleId}")
     @ApiOperation(value = "Delete article")
-    public void deleteUrticle(@PathParam("articleId") Long id){
+    public void deleteArticle(@PathParam("articleId") Long id){
         articleService.delete(id);
     }
 

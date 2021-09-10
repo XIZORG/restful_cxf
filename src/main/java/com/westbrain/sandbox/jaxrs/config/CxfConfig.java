@@ -12,12 +12,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class CxfConfig {
 
     @Autowired
     private Bus bus;
+    @Autowired
+    private ArticleController articleController;
 
     @Bean
     public Server rsServer() {
@@ -25,13 +28,8 @@ public class CxfConfig {
         endpoint.setProviders(Arrays.<Object>asList(new JacksonJsonProvider(), new BadRequestExceptionMapper()));
         endpoint.setBus(bus);
         endpoint.setAddress("/");
-        endpoint.setServiceBeans(Arrays.<Object>asList(contextAPI()));
-        endpoint.setFeatures(Arrays.asList(new Swagger2Feature()));
+        endpoint.setServiceBeans(List.<Object>of(articleController));
+        endpoint.setFeatures(List.of(new Swagger2Feature()));
         return endpoint.create();
-    }
-
-    @Bean
-    public ArticleController contextAPI() {
-        return new ArticleController();
     }
 }
