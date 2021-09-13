@@ -1,4 +1,4 @@
-package com.westbrain.sandbox.jaxrs.model.article;
+package com.westbrain.sandbox.jaxrs.entity;
 
 import lombok.Data;
 

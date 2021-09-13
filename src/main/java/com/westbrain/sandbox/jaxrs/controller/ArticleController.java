@@ -9,8 +9,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import javax.ws.rs.*;
+import javax.validation.Valid;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -19,6 +27,7 @@ import java.util.List;
 @Path("/articles")
 @Produces(MediaType.APPLICATION_JSON)
 @Controller
+@Validated
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -38,7 +47,7 @@ public class ArticleController {
     @POST
     @Path("/")
     @ApiOperation("Create new article")
-    public ArticleResponse createArticle(ArticleRequest articleRequest){
+    public ArticleResponse createArticle(@Valid ArticleRequest articleRequest){
         return articleService.create(articleRequest);
     }
 

@@ -1,7 +1,7 @@
 package com.westbrain.sandbox.jaxrs.service.impl;
 
 
-import com.westbrain.sandbox.jaxrs.model.article.Article;
+import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
@@ -30,10 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponse get(Long id) {
-        Article article = articleRepository.findById(id);
-        if (article == null) {
-            throw new BadRequestException("entity with id: " + id + " not found");
-        }
+        Article article = articleRepository.findById(id).orElseThrow(() ->
+                new BadRequestException("entity with id: " + id + " not found"));;
         return ArticleResponse.responseFromArticle(article);
     }
 
@@ -46,16 +44,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponse update(Long id, ArticleRequest articleRequest) {
-        Article article = articleRepository.findById(id);
-        if (article == null) {
-            throw new BadRequestException("entity with id: " + id + " not found");
-        }
+        Article article = articleRepository.findById(id).orElseThrow(() ->
+                new BadRequestException("entity with id: " + id + " not found"));
         article.setDescription(articleRequest.getDescription());
         return ArticleResponse.responseFromArticle(articleRepository.save(article));
     }
 
     @Override
     public void delete(Long id) {
+        if (articleRepository.findById(id).isEmpty()) {
+            throw new BadRequestException("entity with id: " + id + " not found!!");
+        }
         articleRepository.delete(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.westbrain.sandbox.jaxrs.service;
 
-import com.westbrain.sandbox.jaxrs.model.article.Article;
+import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
@@ -50,7 +50,7 @@ public class ArticleServiceTest {
         article.setId(id);
         article.setDescription(descr);
 
-        when(articleRepository.findById(id)).thenReturn(article);
+        when(articleRepository.findById(id)).thenReturn(java.util.Optional.of(article));
         ArticleResponse articleResponse = articleService.get(id);
         assertNotNull(articleResponse);
 
@@ -91,7 +91,7 @@ public class ArticleServiceTest {
         Article article = new Article();
         article.setId(id);
         article.setDescription(descr);
-        when(articleRepository.findById(id)).thenReturn(article);
+        when(articleRepository.findById(id)).thenReturn(java.util.Optional.of(article));
         when(articleRepository.save(article)).thenReturn(article);
 
         ArticleResponse articleResponse = articleService.update(id, articleRequest);

@@ -1,5 +1,6 @@
 package com.westbrain.sandbox.jaxrs.model.article;
 
+import com.westbrain.sandbox.jaxrs.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

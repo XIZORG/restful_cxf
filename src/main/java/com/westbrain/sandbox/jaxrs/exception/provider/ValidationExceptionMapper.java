@@ -4,6 +4,7 @@ import com.westbrain.sandbox.jaxrs.exception.model.FieldErrorContainer;
 import com.westbrain.sandbox.jaxrs.exception.model.FieldErrorModel;
 import org.springframework.http.HttpStatus;
 
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,17 +12,15 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class BadRequestExceptionMapper implements ExceptionMapper<BadRequestException> {
+public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
     @Override
-    public Response toResponse(BadRequestException e) {
+    public Response toResponse(ConstraintViolationException e) {
         FieldErrorContainer errorInfoContainer = new FieldErrorContainer();
-        errorInfoContainer.getErrorList().add(new FieldErrorModel(e.getMessage()));
+        errorInfoContainer.getErrorList().add(new FieldErrorModel("chek if the request is correct"));
         return Response
-                .status(HttpStatus.NOT_FOUND.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .type(MediaType.APPLICATION_JSON)
                 .entity(errorInfoContainer)
                 .build();
     }
 }
-
-

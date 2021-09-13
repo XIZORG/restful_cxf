@@ -3,6 +3,8 @@ package com.westbrain.sandbox.jaxrs.config;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.westbrain.sandbox.jaxrs.controller.ArticleController;
 import com.westbrain.sandbox.jaxrs.exception.provider.BadRequestExceptionMapper;
+import com.westbrain.sandbox.jaxrs.exception.provider.JsonParseExceptionMapper;
+import com.westbrain.sandbox.jaxrs.exception.provider.ValidationExceptionMapper;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
@@ -29,7 +31,10 @@ public class CxfConfig {
     @Bean
     public Server rsServer() {
         final JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
-        endpoint.setProviders(Arrays.<Object>asList(new JacksonJsonProvider(), new BadRequestExceptionMapper()));
+        endpoint.setProviders(Arrays.<Object>asList(new JacksonJsonProvider(),
+                new BadRequestExceptionMapper(),
+                new ValidationExceptionMapper(),
+                new JsonParseExceptionMapper()));
         endpoint.setBus(bus);
         endpoint.setAddress("/");
         endpoint.setServiceBeans(List.<Object>of(articleController));
