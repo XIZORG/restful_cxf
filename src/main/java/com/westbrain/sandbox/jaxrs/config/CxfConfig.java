@@ -17,10 +17,14 @@ import java.util.List;
 @Configuration
 public class CxfConfig {
 
+    private final Bus bus;
+    private final ArticleController articleController;
+
     @Autowired
-    private Bus bus;
-    @Autowired
-    private ArticleController articleController;
+    public CxfConfig(Bus bus, ArticleController articleController) {
+        this.bus = bus;
+        this.articleController = articleController;
+    }
 
     @Bean
     public Server rsServer() {
