@@ -1,4 +1,5 @@
-./stop-docker.sh 
+cd ../
+./stop-docker.sh
 mvn clean package
 sudo docker build -t user-mysql .
 sudo docker rm user-mysql
