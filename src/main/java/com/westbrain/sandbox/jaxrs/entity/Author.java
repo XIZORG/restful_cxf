@@ -9,46 +9,60 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "articles")
-public class Article {
+@Table(name = "authors")
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private String description;
-
     @JsonIgnore
-    @ManyToMany(mappedBy = "articles")
-    private Set<Author> authors = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "authors_to_articles",
+            joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id", referencedColumnName = "id")
+    )
+    private Set<Article> articles = new HashSet<>();
+
+    public void addArticle(Article article) {
+        articles.add(article);
+        article.getAuthors().add(this);
+    }
+
+    public void removeArticle(Article article) {
+        articles.remove(article);
+        article.getAuthors().remove(this);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(id, article.id) && Objects.equals(name, article.name) && Objects.equals(description, article.description);
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) && Objects.equals(name, author.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description);
+        return Objects.hash(id, name);
     }
-
 }

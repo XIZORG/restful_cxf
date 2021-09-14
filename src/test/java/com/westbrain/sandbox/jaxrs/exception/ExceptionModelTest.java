@@ -5,7 +5,6 @@ import com.westbrain.sandbox.jaxrs.exception.model.FieldErrorModel;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.BadRequestException;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

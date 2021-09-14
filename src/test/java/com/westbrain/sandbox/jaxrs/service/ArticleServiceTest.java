@@ -4,6 +4,7 @@ import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
+import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
 import com.westbrain.sandbox.jaxrs.service.impl.ArticleServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,16 +13,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ArticleServiceTest {
     private ArticleRepository articleRepository;
     private ArticleService articleService;
+    private AuthorRepository authorRepository;
 
     @BeforeEach
     void setUp() {
         articleRepository = mock(ArticleRepository.class);
-        articleService = new ArticleServiceImpl(articleRepository);
+        authorRepository = mock(AuthorRepository.class);
+        articleService = new ArticleServiceImpl(articleRepository, authorRepository);
     }
 
     @Test
@@ -38,7 +43,7 @@ public class ArticleServiceTest {
 
         ArticleResponse articleResponse = articleService.create(articleRequest);
         assertNotNull(articleResponse);
-        assertEquals(articleResponse.getDescription(), articleRequest.description);
+        assertEquals(articleResponse.getDescription(), articleRequest.getDescription());
     }
 
     @Test
@@ -49,6 +54,7 @@ public class ArticleServiceTest {
         Article article = new Article();
         article.setId(id);
         article.setDescription(descr);
+        article.setName("name");
 
         when(articleRepository.findById(id)).thenReturn(java.util.Optional.of(article));
         ArticleResponse articleResponse = articleService.get(id);
@@ -94,7 +100,7 @@ public class ArticleServiceTest {
         when(articleRepository.findById(id)).thenReturn(java.util.Optional.of(article));
         when(articleRepository.save(article)).thenReturn(article);
 
-        ArticleResponse articleResponse = articleService.update(id, articleRequest);
+        ArticleResponse articleResponse = articleService.update(articleRequest, id);
         assertNotNull(articleResponse);
         assertEquals(articleResponse.getDescription(), newDescr);
         assertEquals(articleResponse.getId(), id);

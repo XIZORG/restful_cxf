@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -2,7 +2,6 @@ package com.westbrain.sandbox.jaxrs;
 
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -12,14 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith( SpringRunner.class )
@@ -47,7 +51,7 @@ public class ApplicationCxfTest {
         String url = "http://localhost:" + port + "/rest/articles";
         ArticleRequest requestBody = new ArticleRequest();
         requestBody.setDescription("some first test description");
-
+        requestBody.setName("name");
         ResponseEntity<ArticleResponse> responseEntity = rest.postForEntity(url, requestBody, ArticleResponse.class);
         ArticleResponse articleResponse = responseEntity.getBody();
         assertNotNull(articleResponse);
@@ -75,6 +79,7 @@ public class ApplicationCxfTest {
         String newDescription = "changed descr";
         ArticleRequest articleRequest = new ArticleRequest();
         articleRequest.setDescription(newDescription);
+        articleRequest.setName("name");
         HttpEntity<ArticleRequest> entityReq = new HttpEntity<ArticleRequest>(articleRequest, headers);
 
         ResponseEntity<ArticleResponse> articleInfo = rest.exchange(url,
