@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -103,8 +103,14 @@ public class ArticleServiceTest {
     @Test
     void testDeleteArticle() {
         Long articleId = 1L;
+        String descr = "some text to test";
+        Article article = new Article();
+        article.setId(articleId);
+        article.setDescription(descr);
+
+        when(articleRepository.findById(articleId)).thenReturn(java.util.Optional.of(article));
 
         articleService.delete(articleId);
-        verify(articleRepository).delete(articleId);
+        verify(articleRepository).deleteById(articleId);
     }
 }

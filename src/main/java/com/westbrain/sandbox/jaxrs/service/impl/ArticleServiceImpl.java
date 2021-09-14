@@ -55,6 +55,6 @@ public class ArticleServiceImpl implements ArticleService {
         if (articleRepository.findById(id).isEmpty()) {
             throw new BadRequestException("entity with id: " + id + " not found!!");
         }
-        articleRepository.delete(id);
+        articleRepository.deleteById(id);
     }
 }
