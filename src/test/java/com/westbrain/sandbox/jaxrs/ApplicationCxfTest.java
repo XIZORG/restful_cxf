@@ -1,7 +1,11 @@
 package com.westbrain.sandbox.jaxrs;
 
+import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
+import com.westbrain.sandbox.jaxrs.model.article.ArticleSubscribeRequest;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -112,12 +116,86 @@ public class ApplicationCxfTest {
     }
 
     @Test
-    public void step6DeleteArticle() {
+    public void step6testDeleteArticle() {
         HttpHeaders headers = new HttpHeaders();
 
         String url = "http://localhost:" + port + "/rest/articles/1";
         ResponseEntity<ArticleResponse> articleInfo = rest.exchange(url,
                 HttpMethod.DELETE, new HttpEntity<>(headers), ArticleResponse.class);
         assertEquals(articleInfo.getStatusCode(), HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    public void step7testCreateAuthor() {
+        String url = "http://localhost:" + port + "/rest/authors";
+        AuthorRequest requestBody = new AuthorRequest();
+        requestBody.setName("some first test name");
+        ResponseEntity<AuthorResponse> responseEntity = rest.postForEntity(url, requestBody, AuthorResponse.class);
+        AuthorResponse articleResponse = responseEntity.getBody();
+        assertNotNull(articleResponse);
+        assertEquals(articleResponse.getName(), "some first test name");
+    }
+
+    @Test
+    public void step8testGetAuthor() {
+        HttpHeaders headers = new HttpHeaders();
+        String url = "http://localhost:" + port + "/rest/authors/1";
+        ResponseEntity<AuthorResponse> responseEntity = rest.exchange(url,
+                HttpMethod.GET, new HttpEntity<>(headers), AuthorResponse.class);
+        AuthorResponse authorResponse = responseEntity.getBody();
+        assertNotNull(authorResponse);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        Long id = 1L;
+        assertEquals(authorResponse.getId(), id);
+        assertEquals(authorResponse.getName(), "some first test name");
+    }
+
+    @Test
+    public void step9testUpdateAuthor() {
+        HttpHeaders headers = new HttpHeaders();
+
+        String url = "http://localhost:" + port + "/rest/authors/1";
+        String newName = "changed name";
+        AuthorRequest authorRequest = new AuthorRequest();
+        authorRequest.setName(newName);
+        HttpEntity<AuthorRequest> entityReq = new HttpEntity<AuthorRequest>(authorRequest, headers);
+
+        ResponseEntity<AuthorResponse> responseEntity = rest.exchange(url,
+                HttpMethod.PUT, entityReq, AuthorResponse.class);
+        AuthorResponse authorResponse = responseEntity.getBody();
+        assertNotNull(authorResponse);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        Long id = 1L;
+        assertEquals(authorResponse.getId(), id);
+        assertEquals(authorResponse.getName(), newName);
+    }
+
+    @Test
+    public void stepAtestGetAllAuthors() {
+        HttpHeaders headers = new HttpHeaders();
+        String url = "http://localhost:" + port + "/rest/authors";
+
+
+        ResponseEntity<List> articleInfo = rest.exchange(url,
+                HttpMethod.GET, new HttpEntity<>(headers), List.class);
+
+        List<AuthorResponse> responseEntity = articleInfo.getBody();
+        Map article = (Map) responseEntity.get(0);
+
+        assertNotNull(article);
+        assertEquals(articleInfo.getStatusCode(), HttpStatus.OK);
+        Integer id = 1;
+        assertEquals(article.get("id"), id);
+        assertEquals(article.get("name"), "changed name");
+    }
+
+    @Test
+    public void stepBtestDeleteArticle() {
+        HttpHeaders headers = new HttpHeaders();
+
+        String url = "http://localhost:" + port + "/rest/authors/1";
+        ResponseEntity<AuthorResponse> responseEntity = rest.exchange(url,
+                HttpMethod.DELETE, new HttpEntity<>(headers), AuthorResponse.class);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.NO_CONTENT);
     }
 }

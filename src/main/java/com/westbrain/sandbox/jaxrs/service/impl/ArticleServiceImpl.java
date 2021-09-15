@@ -69,6 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public ArticleResponse update(ArticleRequest articleRequest, Long id) {
         Article article = articleRepository.findById(id).orElseThrow(() ->
                 new BadRequestException("entity with id: " + id + " not found"));
