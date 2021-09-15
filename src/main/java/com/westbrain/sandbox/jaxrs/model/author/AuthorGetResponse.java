@@ -10,7 +10,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorResponse {
+public class AuthorGetResponse {
     private String name;
     private Long id;
+    private Set<Article> articles;
 }

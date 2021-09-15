@@ -4,6 +4,7 @@ import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
@@ -60,7 +61,7 @@ public class AuthorServiceTest {
         author.setId(id);
 
         when(authorRepository.findById(id)).thenReturn(java.util.Optional.of(author));
-        AuthorResponse authorResponse = authorService.get(id);
+        AuthorGetResponse authorResponse = authorService.get(id);
         assertNotNull(authorResponse);
 
         assertEquals(authorResponse.getName(), name);

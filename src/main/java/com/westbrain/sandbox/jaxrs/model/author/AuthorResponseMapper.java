@@ -7,4 +7,7 @@ import org.mapstruct.Mapper;
 public interface AuthorResponseMapper {
     AuthorResponse sourceToDestination(Author source);
     Author destinationToSource(AuthorResponse destination);
+
+    AuthorGetResponse sourceToDestinationGet(Author source);
+    Author destinationToSourceGet(AuthorGetResponse destination);
 }

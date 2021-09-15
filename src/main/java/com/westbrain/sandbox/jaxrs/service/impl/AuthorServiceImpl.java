@@ -3,6 +3,7 @@ package com.westbrain.sandbox.jaxrs.service.impl;
 import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleSubscribeRequest;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponseMapper;
@@ -33,6 +34,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public List<AuthorResponse> getAll() {
         List<Author> articles = authorRepository.findAll();
         log.info("Getting all authors");
@@ -40,11 +42,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorResponse get(Long id) {
+    @Transactional
+    public AuthorGetResponse get(Long id) {
         Author author = authorRepository.findById(id).orElseThrow(() ->
                 new BadRequestException("entity with id: " + id + " not found"));
         log.info("Getting author with id: " + id);
-        return authorMapper.sourceToDestination(author);
+        return authorMapper.sourceToDestinationGet(author);
     }
 
     @Override

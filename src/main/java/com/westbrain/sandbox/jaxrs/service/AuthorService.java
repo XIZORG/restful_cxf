@@ -3,6 +3,7 @@ package com.westbrain.sandbox.jaxrs.service;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleSubscribeRequest;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import io.swagger.annotations.Api;
@@ -33,7 +34,7 @@ public interface AuthorService {
     @GET
     @Path("/{authorId}")
     @ApiOperation("Get author")
-    AuthorResponse get(@PathParam("authorId") Long id);
+    AuthorGetResponse get(@PathParam("authorId") Long id);
 
     @POST
     @Path("/")

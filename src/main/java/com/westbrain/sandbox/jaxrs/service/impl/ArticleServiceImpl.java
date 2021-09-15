@@ -3,9 +3,9 @@ package com.westbrain.sandbox.jaxrs.service.impl;
 
 import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.entity.Author;
-import com.westbrain.sandbox.jaxrs.model.article.ArticleResponseMapper;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
+import com.westbrain.sandbox.jaxrs.model.article.ArticleResponseMapper;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
 import com.westbrain.sandbox.jaxrs.service.ArticleService;
