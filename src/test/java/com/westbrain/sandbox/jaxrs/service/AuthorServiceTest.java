@@ -1,15 +1,11 @@
 package com.westbrain.sandbox.jaxrs.service;
 
-import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.entity.Author;
-import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
-import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
-import com.westbrain.sandbox.jaxrs.service.impl.ArticleServiceImpl;
 import com.westbrain.sandbox.jaxrs.service.impl.AuthorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

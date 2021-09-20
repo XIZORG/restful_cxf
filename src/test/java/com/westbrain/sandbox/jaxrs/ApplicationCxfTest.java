@@ -1,9 +1,7 @@
 package com.westbrain.sandbox.jaxrs;
 
-import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
-import com.westbrain.sandbox.jaxrs.model.article.ArticleSubscribeRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import org.junit.FixMethodOrder;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.westbrain.sandbox.jaxrs.exception.provider.BadRequestExceptionMapper;
 import com.westbrain.sandbox.jaxrs.exception.provider.JsonParseExceptionMapper;
 import com.westbrain.sandbox.jaxrs.exception.provider.ValidationExceptionMapper;
+import com.westbrain.sandbox.jaxrs.provider.CORSFilter;
 import com.westbrain.sandbox.jaxrs.service.impl.ArticleServiceImpl;
 import com.westbrain.sandbox.jaxrs.service.impl.AuthorServiceImpl;
 import org.apache.cxf.Bus;
@@ -37,7 +38,8 @@ public class CxfConfig {
         endpoint.setProviders(Arrays.<Object>asList(new JacksonJsonProvider(),
                 new BadRequestExceptionMapper(),
                 new ValidationExceptionMapper(),
-                new JsonParseExceptionMapper()));
+                new JsonParseExceptionMapper(),
+                new CORSFilter()));
         endpoint.setBus(bus);
         endpoint.setAddress("/");
         endpoint.setServiceBeans(List.<Object>of(articleService, authorService));
