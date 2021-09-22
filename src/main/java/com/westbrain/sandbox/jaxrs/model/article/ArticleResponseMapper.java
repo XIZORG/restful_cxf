@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ArticleResponseMapper {
-    ArticleResponse sourceToDestination(Article source);
-    Article destinationToSource(ArticleResponse destination);
+    ArticleResponse articleToArticleResponse(Article source);
+    Article articleResponseToArtilce(ArticleResponse destination);
 }

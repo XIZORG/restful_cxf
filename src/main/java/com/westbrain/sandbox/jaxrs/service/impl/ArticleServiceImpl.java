@@ -39,16 +39,16 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleResponse> getAll() {
         List<Article> articles = articleRepository.findAll();
         log.info("Getting all articles");
-        return articles.stream().map(articleMapper::sourceToDestination).collect(Collectors.toList());
+        return articles.stream().map(articleMapper::articleToArticleResponse).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public ArticleResponse get(Long id) {
         Article article = articleRepository.findById(id).orElseThrow(() ->
-                new BadRequestException("entity with id: " + id + " not found"));
+                new BadRequestException("article with id: " + id + " not found"));
         log.info("Getting article with id: " + id);
-        return articleMapper.sourceToDestination(article);
+        return articleMapper.articleToArticleResponse(article);
     }
 
     @Override
@@ -60,32 +60,33 @@ public class ArticleServiceImpl implements ArticleService {
         if (articleRequest.getAuthorsId() != null) {
             Set<Author> authors = articleRequest.getAuthorsId().stream()
                     .map(data -> authorRepository.findById(data).orElseThrow(() ->
-                            new BadRequestException("entity with id: " + data + " not found")))
+                            new BadRequestException("author with id: " + data + " not found")))
                     .collect(Collectors.toSet());
             authors.forEach(author -> author.addArticle(article));
         }
 
         log.info("Creating article!");
-        return articleMapper.sourceToDestination(articleRepository.save(article));
+        return articleMapper.articleToArticleResponse(articleRepository.save(article));
     }
 
     @Override
     @Transactional
     public ArticleResponse update(ArticleRequest articleRequest, Long id) {
         Article article = articleRepository.findById(id).orElseThrow(() ->
-                new BadRequestException("entity with id: " + id + " not found"));
+                new BadRequestException("article with id: " + id + " not found"));
         article.setDescription(articleRequest.getDescription());
         article.setName(articleRequest.getName());
         log.info("Updating article with id: " + id);
-        return articleMapper.sourceToDestination(articleRepository.save(article));
+        return articleMapper.articleToArticleResponse(articleRepository.save(article));
     }
 
     @Override
     public void delete(Long id) {
         log.info("Deleting article with id: " + id);
         if (articleRepository.findById(id).isEmpty()) {
-            throw new BadRequestException("entity with id: " + id + " not found!!");
+            throw new BadRequestException("article with id: " + id + " not found!!");
         }
+
         articleRepository.deleteById(id);
         log.info("Successfully delete article with id: " + id);
     }

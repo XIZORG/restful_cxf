@@ -36,42 +36,41 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public List<AuthorResponse> getAll() {
-        List<Author> articles = authorRepository.findAll();
-        log.info("Getting all authors");
-        return articles.stream().map(authorMapper::sourceToDestination).collect(Collectors.toList());
+        List<Author> authors = authorRepository.findAll();
+        log.info("authors all authors");
+        return authors.stream().map(authorMapper::authorToAuthorResponse).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public AuthorGetResponse get(Long id) {
         Author author = authorRepository.findById(id).orElseThrow(() ->
-                new BadRequestException("entity with id: " + id + " not found"));
+                new BadRequestException("author with id: " + id + " not found"));
         log.info("Getting author with id: " + id);
-        return authorMapper.sourceToDestinationGet(author);
+        return authorMapper.authorToGetResponse(author);
     }
 
     @Override
     public AuthorResponse create(AuthorRequest authorRequest) {
-        Author author = new Author();
-        author.setName(authorRequest.getName());
+        Author author = authorMapper.authorRequestToAuthor(authorRequest);
         log.info("Creating author!");
-        return authorMapper.sourceToDestination(authorRepository.save(author));
+        return authorMapper.authorToAuthorResponse(authorRepository.save(author));
     }
 
     @Override
     public AuthorResponse update(AuthorRequest authorRequest, Long id) {
         Author author = authorRepository.findById(id).orElseThrow(() ->
-                new BadRequestException("entity with id: " + id + " not found"));
+                new BadRequestException("author with id: " + id + " not found"));
         author.setName(authorRequest.getName());
         log.info("Updating author with id: " + id);
-        return authorMapper.sourceToDestination(authorRepository.save(author));
+        return authorMapper.authorToAuthorResponse(authorRepository.save(author));
     }
 
     @Override
     public void delete(Long id) {
         log.info("Deleting author with id: " + id);
         if (authorRepository.findById(id).isEmpty()) {
-            throw new BadRequestException("entity with id: " + id + " not found!!");
+            throw new BadRequestException("author with id: " + id + " not found!!");
         }
         authorRepository.deleteById(id);
         log.info("Successfully delete author with id: " + id);

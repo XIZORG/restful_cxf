@@ -5,9 +5,11 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface AuthorResponseMapper {
-    AuthorResponse sourceToDestination(Author source);
-    Author destinationToSource(AuthorResponse destination);
+    AuthorResponse authorToAuthorResponse(Author source);
+    Author authorResponseToAuthor(AuthorResponse destination);
 
-    AuthorGetResponse sourceToDestinationGet(Author source);
-    Author destinationToSourceGet(AuthorGetResponse destination);
+    AuthorGetResponse authorToGetResponse(Author source);
+    Author getResponseToAuthor(AuthorGetResponse destination);
+
+    Author authorRequestToAuthor(AuthorRequest authorRequest);
 }
