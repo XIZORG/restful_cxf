@@ -2,6 +2,7 @@ package com.westbrain.sandbox.jaxrs.service;
 
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
+import com.westbrain.sandbox.jaxrs.model.article.ArticleUpdateRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +41,7 @@ public interface ArticleService {
     @PUT
     @Path("/{articleId}")
     @ApiOperation(value = "Update article")
-    ArticleResponse update(ArticleRequest articleRequest, @PathParam("articleId") Long id);
+    ArticleResponse update(@Valid ArticleUpdateRequest articleRequest, @PathParam("articleId") Long id);
 
     @DELETE
     @Path("/{articleId}")

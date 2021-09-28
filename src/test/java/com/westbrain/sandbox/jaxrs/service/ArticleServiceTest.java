@@ -3,6 +3,7 @@ package com.westbrain.sandbox.jaxrs.service;
 import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
+import com.westbrain.sandbox.jaxrs.model.article.ArticleUpdateRequest;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
 import com.westbrain.sandbox.jaxrs.service.impl.ArticleServiceImpl;
@@ -91,7 +92,7 @@ public class ArticleServiceTest {
         String descr = "some text to test";
         String newDescr = "new text";
 
-        ArticleRequest articleRequest = new ArticleRequest();
+        ArticleUpdateRequest articleRequest = new ArticleUpdateRequest();
         articleRequest.setDescription(newDescr);
 
         Article article = new Article();

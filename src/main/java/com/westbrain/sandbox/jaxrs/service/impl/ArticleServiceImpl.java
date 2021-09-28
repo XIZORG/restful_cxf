@@ -6,6 +6,7 @@ import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponseMapper;
+import com.westbrain.sandbox.jaxrs.model.article.ArticleUpdateRequest;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
 import com.westbrain.sandbox.jaxrs.service.ArticleService;
@@ -71,7 +72,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public ArticleResponse update(ArticleRequest articleRequest, Long id) {
+    public ArticleResponse update(ArticleUpdateRequest articleRequest, Long id) {
         Article article = articleRepository.findById(id).orElseThrow(() ->
                 new BadRequestException("article with id: " + id + " not found"));
         article.setDescription(articleRequest.getDescription());

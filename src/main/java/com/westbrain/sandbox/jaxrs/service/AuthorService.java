@@ -44,7 +44,7 @@ public interface AuthorService {
     @PUT
     @Path("/{authorId}")
     @ApiOperation(value = "Update author")
-    AuthorResponse update(AuthorRequest authorRequest, @PathParam("authorId") Long id);
+    AuthorResponse update(@Valid AuthorRequest authorRequest, @PathParam("authorId") Long id);
 
     @DELETE
     @Path("/{authorId}")
@@ -54,5 +54,5 @@ public interface AuthorService {
     @POST
     @Path("/{authorId}/article")
     @ApiOperation("Add article to author")
-    void addAuthorToArticle(ArticleSubscribeRequest request, @PathParam("authorId") Long id);
+    void addAuthorToArticle(@Valid ArticleSubscribeRequest request, @PathParam("authorId") Long id);
 }
