@@ -1,6 +1,9 @@
-package com.westbrain.sandbox.jaxrs.model.author;
+package com.westbrain.sandbox.jaxrs.mapper;
 
 import com.westbrain.sandbox.jaxrs.entity.Author;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
+import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
 import org.mapstruct.Mapper;
 
 @Mapper

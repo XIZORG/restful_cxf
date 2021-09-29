@@ -6,7 +6,7 @@ import com.westbrain.sandbox.jaxrs.model.article.ArticleSubscribeRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorGetResponse;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorRequest;
 import com.westbrain.sandbox.jaxrs.model.author.AuthorResponse;
-import com.westbrain.sandbox.jaxrs.model.author.AuthorResponseMapper;
+import com.westbrain.sandbox.jaxrs.mapper.AuthorResponseMapper;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
 import com.westbrain.sandbox.jaxrs.service.AuthorService;
@@ -87,5 +87,18 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.save(author);
         articleRepository.save(article);
         log.info("Adding article with id: " + request.getId() + "to author with id: " + id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthorFromArticle(ArticleSubscribeRequest request, Long id) {
+        Article article = articleRepository.findById(request.getId()).orElseThrow(() ->
+                new BadRequestException("article with id: " + id + " not found"));
+        Author author = authorRepository.findById(id).orElseThrow(() ->
+                new BadRequestException("author with id: " + id + " not found"));
+        author.removeArticle(article);
+        authorRepository.save(author);
+        articleRepository.save(article);
+        log.info("Removing article with id: " + request.getId() + "from author with id: " + id);
     }
 }

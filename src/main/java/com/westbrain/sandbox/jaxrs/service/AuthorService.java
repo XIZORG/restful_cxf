@@ -55,4 +55,9 @@ public interface AuthorService {
     @Path("/{authorId}/article")
     @ApiOperation("Add article to author")
     void addAuthorToArticle(@Valid ArticleSubscribeRequest request, @PathParam("authorId") Long id);
+
+    @DELETE
+    @Path("/{authorId}/article")
+    @ApiOperation(value = "Delete article from author")
+    void deleteAuthorFromArticle(@Valid ArticleSubscribeRequest request, @PathParam("authorId") Long id);
 }

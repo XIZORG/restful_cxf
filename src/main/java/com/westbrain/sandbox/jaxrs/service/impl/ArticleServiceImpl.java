@@ -5,7 +5,7 @@ import com.westbrain.sandbox.jaxrs.entity.Article;
 import com.westbrain.sandbox.jaxrs.entity.Author;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleRequest;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleResponse;
-import com.westbrain.sandbox.jaxrs.model.article.ArticleResponseMapper;
+import com.westbrain.sandbox.jaxrs.mapper.ArticleResponseMapper;
 import com.westbrain.sandbox.jaxrs.model.article.ArticleUpdateRequest;
 import com.westbrain.sandbox.jaxrs.repository.ArticleRepository;
 import com.westbrain.sandbox.jaxrs.repository.AuthorRepository;
@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
