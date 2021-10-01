@@ -1,5 +1,16 @@
 version: '3'
 services:
+  redis:
+    image: redis
+    command: [ "redis-server", "--appendonly", "yes" ]
+    hostname: redis
+    ports:
+      - 6379:6379
+    networks:
+      - redis-net
+    volumes:
+      - redis-data:/data
+
   mysql-block:
     restart: always
     container_name: mysql-block
@@ -10,6 +21,8 @@ services:
       MYSQL_ROOT_HOST: '%'
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - redis-net
 
     ports:
       - "6033:3306"
@@ -22,6 +35,8 @@ services:
   article-block:
     restart: on-failure
     build: ./
+    links:
+      - redis
     expose:
       - "8089"
     ports:
@@ -30,3 +45,12 @@ services:
       WAIT_HOSTS: mysql:3306
     depends_on:
       - mysql-block
+      - redis
+    networks:
+      - redis-net
+
+networks:
+  redis-net:
+
+volumes:
+  redis-data:

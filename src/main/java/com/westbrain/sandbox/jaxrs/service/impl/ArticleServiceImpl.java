@@ -13,6 +13,7 @@ import com.westbrain.sandbox.jaxrs.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -44,6 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
+    @Cacheable(value = "itemCache")
     public ArticleResponse get(Long id) {
         Article article = articleRepository.findById(id).orElseThrow(() ->
                 new BadRequestException("article with id: " + id + " not found"));

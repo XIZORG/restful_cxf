@@ -5,6 +5,8 @@ import com.westbrain.sandbox.jaxrs.exception.provider.BadRequestExceptionMapper;
 import com.westbrain.sandbox.jaxrs.exception.provider.JsonParseExceptionMapper;
 import com.westbrain.sandbox.jaxrs.exception.provider.ValidationExceptionMapper;
 import com.westbrain.sandbox.jaxrs.provider.CORSFilter;
+import com.westbrain.sandbox.jaxrs.service.ArticleService;
+import com.westbrain.sandbox.jaxrs.service.AuthorService;
 import com.westbrain.sandbox.jaxrs.service.impl.ArticleServiceImpl;
 import com.westbrain.sandbox.jaxrs.service.impl.AuthorServiceImpl;
 import org.apache.cxf.Bus;
@@ -22,8 +24,8 @@ import java.util.List;
 public class CxfConfig {
 
     private final Bus bus;
-    private final ArticleServiceImpl articleService;
-    private final AuthorServiceImpl authorService;
+    private final ArticleService articleService;
+    private final AuthorService authorService;
 
     @Autowired
     public CxfConfig(Bus bus, ArticleServiceImpl articleService, AuthorServiceImpl authorService) {
